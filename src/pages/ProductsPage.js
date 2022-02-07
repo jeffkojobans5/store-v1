@@ -1,7 +1,11 @@
+import { useContext } from 'react'
 import styled from 'styled-components'
 import Filter from '../components/Filter'
+import {ProductsContext} from '../contexts/ProductsContext'
 
 function ProductsPage () {
+    const {name } = useContext(ProductsContext)
+    console.log(name);
     return (
         <Wrapper>
             <div className="banner">
@@ -33,6 +37,7 @@ const Wrapper = styled.div`
     .section {
         display: flex;
         justify-content: space-between;
+        margin-top: 2rem;
     }
 `
 
