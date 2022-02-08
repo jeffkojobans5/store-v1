@@ -1,11 +1,11 @@
 import { useContext } from 'react'
 import styled from 'styled-components'
 import Filter from '../components/Filter'
-import {ProductsContext} from '../contexts/ProductsContext'
+
 
 function ProductsPage () {
-    const {name } = useContext(ProductsContext)
-    console.log(name);
+    
+    
     return (
         <Wrapper>
             <div className="banner">
