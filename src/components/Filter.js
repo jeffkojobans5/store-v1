@@ -51,14 +51,38 @@ function Filter () {
                     }) }                      
             </div>
 
-        </Wrapper>        
+{/* price range */}
+        <div className="company">
+                <p className="header"> Price </p> <br/>
+                <label> $ 30,000.00 </label> <br/>
+                <input 
+                    type="range" 
+                    id="volume" 
+                    name="volume"
+                    min="0" 
+                    max="11" />           
+            </div>
+
+{/* shippping */}
+            <div className="company">
+                <p className="header"> Shipping </p> <br/>
+                <label htmlFor="vehicle1"> Free Shipping </label>
+                <input type="checkbox" id="vehicle1" name="vehicle1" value="Bike" />
+            </div>  
+
+{/* clear filters */}
+            <div className="company">
+                <button type="button" className="reset"> Clear Filter </button>
+            </div>  
+        </Wrapper>  
     )
 }
 
 const Wrapper = styled.div`
-    flex: 2;
+    flex: 3;
     font-family: helvetica;
     letter-spacing: 0.1rem;
+    margin-bottom: 4rem;
 
     input[type='text']  {
         border: 0px ;
@@ -103,7 +127,22 @@ const Wrapper = styled.div`
         border: none;
         background-color: whitesmoke;
         letter-spacing: 0.1rem;
+    }
 
+    button.reset {
+        background-color: crimson;
+        border: 1px solid crimson;
+        color: white;
+        padding: 0.4rem;
+        border-radius: 5px;
+        letter-spacing: 0.1rem;
+        transition: 0.3s all;
+    }
+
+    button.reset:hover {
+        background-color: white;
+        border: 1px solid crimson;
+        color: crimson;
     }
 `
 

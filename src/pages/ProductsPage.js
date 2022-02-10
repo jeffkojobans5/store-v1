@@ -1,7 +1,7 @@
 import { useContext } from 'react'
 import styled from 'styled-components'
 import Filter from '../components/Filter'
-
+import ProductsList from '../components/ProductsList'
 
 function ProductsPage () {
     
@@ -16,7 +16,7 @@ function ProductsPage () {
             <Container>
                 <section className="section">
                         <Filter />
-                        {/* <ProductsList /> */}
+                        <ProductsList />
                 </section> 
             </Container>
         </Wrapper>
