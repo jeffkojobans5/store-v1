@@ -8,12 +8,6 @@ function ProductsList () {
             <p> 21 Products Found </p>
             <div className="products">
                 <SingleProduct />
-                <SingleProduct />
-                <SingleProduct />
-                <SingleProduct />
-                <SingleProduct />
-                <SingleProduct />
-                <SingleProduct />
             </div>
         </Wrapper>
     )
@@ -33,6 +27,7 @@ const Wrapper = styled.div`
 
     p {
         font-family: Helvetica;
+        margin-bottom: 1rem;
     }
 
 `

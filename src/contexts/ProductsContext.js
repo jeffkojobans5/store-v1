@@ -8,6 +8,8 @@ export function ProductsProvider ({children}) {
     const [category , setCategory] = React.useState([])
     const [company , setCompanies] = React.useState([])
     const [color , setColor] = React.useState([])
+    const [loading , setLoading] = React.useState(true);
+    const [products , setProducts] = React.useState([]);
 
     function fetchApi () {
         axios.get('https://course-api.com/react-store-products').then((response)=>{
@@ -33,9 +35,9 @@ export function ProductsProvider ({children}) {
                 setCategory(newCategorySet);
                 setCompanies(newCompaniesSet);
                 setColor(newColorSet);
+                setLoading(false)
+                setProducts(response.data)
 
-                console.log(newColorSet);
-            
         }).catch((error)=>{
             console.log(error)
         })
@@ -47,7 +49,7 @@ export function ProductsProvider ({children}) {
         
 
     return (
-        <ProductsContext.Provider value={ { category , company , color} }>
+        <ProductsContext.Provider value={ { category , company , color , loading , products} }>
             { children }
         </ProductsContext.Provider>
     )

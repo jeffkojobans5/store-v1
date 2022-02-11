@@ -2,9 +2,14 @@ import { useContext } from 'react'
 import styled from 'styled-components'
 import Filter from '../components/Filter'
 import ProductsList from '../components/ProductsList'
+import { ProductsContext } from '../contexts/ProductsContext'
+import Loading from '../components/Loading'
 
 function ProductsPage () {
-    
+    const { loading } = useContext(ProductsContext)
+    console.log(loading)
+
+
     
     return (
         <Wrapper>
@@ -15,8 +20,8 @@ function ProductsPage () {
             </div>   
             <Container>
                 <section className="section">
-                        <Filter />
-                        <ProductsList />
+                    <Filter />
+                    { loading ? <Loading /> : <ProductsList /> }
                 </section> 
             </Container>
         </Wrapper>

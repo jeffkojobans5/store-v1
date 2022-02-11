@@ -1,17 +1,31 @@
-import React from 'react';
+import React , { useContext } from 'react';
 import styled from 'styled-components'
+import { ProductsContext } from '../contexts/ProductsContext';
 
 function SingleProduct () {
+
+    const { products } = useContext(ProductsContext)
+    console.log(products);
+
     return (
-                <Product>
-                    <div className="img-con">
-                        <img src="https://dl.airtable.com/.attachmentThumbnails/89ba7458c24252be77f5a835dd398880/c13ef359" alt=""/>
-                    </div>
-                    <div className="price-info">
-                        <p> Modern Poster </p>
-                        <p>$30.99</p>
-                    </div>
-                </Product>
+        <>
+            { products.map((singleProduct)=>{
+
+                const { image , name , price } = singleProduct;
+
+                return (
+                    <Product key={image}>
+                        <div className="img-con">
+                            <img src={image} alt=""/>
+                        </div>
+                        <div className="price-info">
+                            <p> { name[0].toUpperCase() + name.slice(1, name.length ) } </p>
+                            <p> { price } </p>
+                        </div>
+                    </Product>
+                )
+            })}
+        </>    
     )
 }
 
@@ -26,13 +40,13 @@ const Product = styled.div`
     
     .img-con {
         height: 200px;
-        max-width: 270px;
+        max-width: 300px;
         margin-bottom: 0.3rem;
         
         img {
             object-fit: cover;
             height: 200px;
-            width: 270px;
+            width: 300px;
             border-radius : 5px;
         }
     }
