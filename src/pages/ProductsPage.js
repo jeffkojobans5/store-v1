@@ -3,14 +3,13 @@ import styled from 'styled-components'
 import Filter from '../components/Filter'
 import ProductsList from '../components/ProductsList'
 import { ProductsContext } from '../contexts/ProductsContext'
+import { FilterContext } from '../contexts/FilterContext'
 import Loading from '../components/Loading'
 
 function ProductsPage () {
     const { loading } = useContext(ProductsContext)
-    console.log(loading)
+    const { name } = useContext(FilterContext)
 
-
-    
     return (
         <Wrapper>
             <div className="banner">

@@ -5,7 +5,6 @@ import { ProductsContext } from '../contexts/ProductsContext';
 function SingleProduct () {
 
     const { products } = useContext(ProductsContext)
-    console.log(products);
 
     return (
         <>

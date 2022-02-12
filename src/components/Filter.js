@@ -1,11 +1,16 @@
-import React from 'react';
+import React  from 'react';
 import styled from 'styled-components'
-import {ProductsContext} from '../contexts/ProductsContext'
+import { ProductsContext } from '../contexts/ProductsContext'
+import { FilterContext } from '../contexts/FilterContext'
 
 function Filter () {
 
     const { category , company , color } = React.useContext(ProductsContext)
 
+    const {
+        filters: { search , comp , price },
+        filterFunc,
+      } = React.useContext(FilterContext);
 
     return (
         <Wrapper>
@@ -13,6 +18,9 @@ function Filter () {
             <input 
             type="text"
             placeholder="search"
+            onChange = { filterFunc }
+            value = { search }
+            name = 'search'
             />
 
 {/* category */}
@@ -21,19 +29,19 @@ function Filter () {
                 { category.map((item)=> {
                     return (
                         <div className="buttons" key={item}>
-                            <button > { item[0].toUpperCase() + item.slice(1 , item.length) } </button> <br/>
+                            <button name="category" onClick={ (e)=> filterFunc(e) }> { item[0].toUpperCase() + item.slice(1 , item.length) } </button> <br/>
                         </div>                            
                     )
-                }) }
+                })}
             </div>
 
 {/* company */}
             <div className="company">
                 <p className="header"> Category </p>
-                    <select name="company" id="company">
+                    <select name="company" id="company" value = { company } name = "company" onChange = { filterFunc }>
                         { company.map((item)=> {
                             return (
-                                <option value= { { item }} key={item} > { item[0].toUpperCase() + item.slice(1 , item.length) } </option>
+                                <option value= { { item }}  key={item} > { item[0].toUpperCase() + item.slice(1 , item.length) } </option>
                             )
                         }) }                        
                     </select>
