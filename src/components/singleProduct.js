@@ -18,7 +18,7 @@ function SingleProduct () {
                             <img src={image} alt=""/>
                         </div>
                         <div className="price-info">
-                            <p> { name[0].toUpperCase() + name.slice(1, name.length ) } </p>
+                            <p> {name[0].toUpperCase() + name.slice(1, name.length )} </p>
                             <p> { price } </p>
                         </div>
                     </Product>

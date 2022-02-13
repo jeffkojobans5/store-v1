@@ -38,10 +38,10 @@ function Filter () {
 {/* company */}
             <div className="company">
                 <p className="header"> Category </p>
-                    <select name="company" id="company" value = { company } name = "company" onChange = { filterFunc }>
+                    <select name="company" id="company" name = "comp" onChange = { filterFunc }>
                         { company.map((item)=> {
                             return (
-                                <option value= { { item }}  key={item} > { item[0].toUpperCase() + item.slice(1 , item.length) } </option>
+                                <option value= { item }  key={item} > { item[0].toUpperCase() + item.slice(1 , item.length) } </option>
                             )
                         }) }                        
                     </select>
@@ -49,11 +49,11 @@ function Filter () {
 
 {/* color */}
             <div className="company">
-                <p className="header"> Category </p>
+                <p className="header"> Colors </p>
                     { color.map((item)=> {
                         return (
                             <div className="buttons" key={item}>
-                                <button > { item[0].toUpperCase() + item.slice(1 , item.length) } </button> <br/>
+                                <button name="colors" onClick={ (e)=> filterFunc(e) }> { item[0].toUpperCase() + item.slice(1 , item.length) } </button> <br/>
                             </div>                            
                         )
                     }) }                      

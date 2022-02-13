@@ -10,6 +10,7 @@ export function FilterProvider ( {children} ) {
         search : "",
         category : "",
         comp: 'Marcos',
+        colors: "",
         shipping: false,
         price : "all"
       })
@@ -18,7 +19,7 @@ export function FilterProvider ( {children} ) {
         const type = e.target.type;
         const filter = e.target.name;
         const value = e.target.value;
-        // const attribute = e.target.parentNode.attributes.name;
+
         let filterValue ;
 
         if( filter === "search") {
@@ -31,16 +32,20 @@ export function FilterProvider ( {children} ) {
             setFilters({ ...filters, [filter]: filterValue });
         }
 
-        if( filter === "select") {
-
+        if( filter === "comp") {
+            filterValue = value;
+            setFilters({ ...filters, [filter]: filterValue });
         }
         
-        console.log(e.target)
+        if( filter === "colors" ) {
+            filterValue = e.target.innerHTML;
+            setFilters({ ...filters, [filter]: filterValue });
+        }
+        
+        
+        console.log(filters)
     }
 
-    React.useEffect(()=> {
-        // filterFunc();
-    },[filters])
 
     return (
         <FilterContext.Provider value={{ filterFunc , filters  }}>
