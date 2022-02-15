@@ -8,9 +8,12 @@ function Filter () {
     const { category , company , color } = React.useContext(ProductsContext)
 
     const {
-        filters: { search , comp , price },
-        filterFunc,
+        filters: { search , cate , comp , colors , price , shipping  } ,
+        filterFunc , 
+        resetFill 
       } = React.useContext(FilterContext);
+
+
 
     return (
         <Wrapper>
@@ -29,7 +32,14 @@ function Filter () {
                 { category.map((item)=> {
                     return (
                         <div className="buttons" key={item}>
-                            <button name="category" onClick={ (e)=> filterFunc(e) }> { item[0].toUpperCase() + item.slice(1 , item.length) } </button> <br/>
+                            <button 
+                            name="cate" 
+                            data = { cate }
+                            className = {`${
+                                cate === item ? 'active' : null
+                                }`}     
+                            onClick={ (e)=> filterFunc(e) }>{item}</button> <br/>
+                            
                         </div>                            
                     )
                 })}
@@ -37,11 +47,14 @@ function Filter () {
 
 {/* company */}
             <div className="company">
-                <p className="header"> Category </p>
-                    <select name="company" id="company" name = "comp" onChange = { filterFunc }>
+                <p className="header"> Company </p>
+                    <select name="comp" id="company" value = { comp } onChange = { filterFunc }>
                         { company.map((item)=> {
                             return (
-                                <option value= { item }  key={item} > { item[0].toUpperCase() + item.slice(1 , item.length) } </option>
+                                <option 
+                                    value= { item }  
+                                    key={item} > { item[0].toUpperCase() + item.slice(1 , item.length) } 
+                                </option>
                             )
                         }) }                        
                     </select>
@@ -53,7 +66,12 @@ function Filter () {
                     { color.map((item)=> {
                         return (
                             <div className="buttons" key={item}>
-                                <button name="colors" onClick={ (e)=> filterFunc(e) }> { item[0].toUpperCase() + item.slice(1 , item.length) } </button> <br/>
+                                <button 
+                                name="colors" 
+                                className = {`${
+                                colors === item ? 'active' : null
+                                }`}                               
+                                onClick={ (e)=> filterFunc(e) }>{item}</button> <br/>
                             </div>                            
                         )
                     }) }                      
@@ -62,25 +80,36 @@ function Filter () {
 {/* price range */}
         <div className="company">
                 <p className="header"> Price </p> <br/>
-                <label> $ 30,000.00 </label> <br/>
+                <label> $ { price } </label> <br/>
                 <input 
                     type="range" 
-                    id="volume" 
-                    name="volume"
+                    id="price" 
+                    name="price"
+                    onChange={(e)=>filterFunc(e)}
+                    value={price}
                     min="0" 
-                    max="11" />           
+                    max="30000" />           
             </div>
 
 {/* shippping */}
             <div className="company">
                 <p className="header"> Shipping </p> <br/>
                 <label htmlFor="vehicle1"> Free Shipping </label>
-                <input type="checkbox" id="vehicle1" name="vehicle1" value="Bike" />
+                <input 
+                    type="checkbox" 
+                    id="shipping" 
+                    name="shipping" 
+                    checked = {shipping}    
+                    onChange = {(e)=>filterFunc(e)}               
+                />
             </div>  
 
 {/* clear filters */}
             <div className="company">
-                <button type="button" className="reset"> Clear Filter </button>
+                <button 
+                className="reset"
+                onClick={ resetFill }>
+                Clear Filter </button>
             </div>  
         </Wrapper>  
     )
@@ -151,6 +180,10 @@ const Wrapper = styled.div`
         background-color: white;
         border: 1px solid crimson;
         color: crimson;
+    }
+
+    .active {
+        border-bottom: 2px solid gray;
     }
 `
 
