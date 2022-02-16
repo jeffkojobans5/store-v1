@@ -10,6 +10,7 @@ export function ProductsProvider ({children}) {
     const [color , setColor] = React.useState([])
     const [loading , setLoading] = React.useState(true);
     const [products , setProducts] = React.useState([]);
+    const [sort , setSorted] = React.useState([]);
 
     function fetchApi () {
         axios.get('https://course-api.com/react-store-products').then((response)=>{
@@ -30,13 +31,15 @@ export function ProductsProvider ({children}) {
                 let newCategorySet = [ 'All' , ...new Set (allCategories) ]
                 let newCompaniesSet = [ 'All' , ...new Set (allCompanies) ]
                 let newColorSet = [ 'All' , ...new Set (allColors) ]
-                
-                
+                                
                 setCategory(newCategorySet);
                 setCompanies(newCompaniesSet);
                 setColor(newColorSet);
                 setLoading(false)
                 setProducts(response.data)
+                setSorted(response.data);
+
+                
 
         }).catch((error)=>{
             console.log(error)
@@ -49,7 +52,7 @@ export function ProductsProvider ({children}) {
         
 
     return (
-        <ProductsContext.Provider value={ { category , company , color , loading , products} }>
+        <ProductsContext.Provider value={ { category , company , color , loading ,  products , setProducts , sort , setSorted} }>
             { children }
         </ProductsContext.Provider>
     )

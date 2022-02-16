@@ -1,11 +1,15 @@
 import React from 'react';
 import styled from 'styled-components';
 import SingleProduct from './singleProduct';
+import { ProductsContext } from '../contexts/ProductsContext';
 
 function ProductsList () {
+
+    const { products } = React.useContext(ProductsContext)
+
     return (
         <Wrapper> 
-            <p> 21 Products Found </p>
+            <p> { products.length } Products Found </p>
             <div className="products">
                 <SingleProduct />
             </div>

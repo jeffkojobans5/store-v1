@@ -88,7 +88,7 @@ function Filter () {
                     onChange={(e)=>filterFunc(e)}
                     value={price}
                     min="0" 
-                    max="30000" />           
+                    max="310000" />           
             </div>
 
 {/* shippping */}

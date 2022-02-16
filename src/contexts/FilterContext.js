@@ -1,17 +1,20 @@
-import React , { createContext } from 'react'
 
-export const FilterContext = createContext();
+import React from 'react'
+
+import { ProductsContext } from '../contexts/ProductsContext';
+
+export const FilterContext = React.createContext();
 
 export function FilterProvider ( {children} ) {
 
-    const [ name , setName ] = React.useState('Bansah Jephthah');
+    const { products , setProducts , sort , setSorted } = React.useContext(ProductsContext)
     
     const [filters, setFilters ] = React.useState({
         search : "",
         cate : "All",
         comp: "All",
         colors: "All",
-        price : 30000,
+        price : 310000,
         shipping: false
       })
 
@@ -19,10 +22,10 @@ export function FilterProvider ( {children} ) {
         setFilters({
             search : "",
             cate : "All",
-            comp: "",
-            colors: "",
-            price : 30000,
-            shipping: false            
+            comp: "All",
+            colors: "All",
+            price : 310000,
+            shipping: false      
         })
     }
 
@@ -62,9 +65,50 @@ export function FilterProvider ( {children} ) {
             setFilters({ ...filters, [filter]: filterValue });
         }
         
+        console.log(products);
     }
 
+    React.useEffect(() => {
+        let newProducts = [...sort] 
+        const { search, cate, comp, colors , price , shipping } = filters;
 
+        console.log(filters);
+
+        if (search !== "") {
+          newProducts = newProducts.filter(item => {
+            let name = item.name.toLowerCase().trim();
+            return name.includes(search) ? item : null;
+          });
+        }
+
+        if (cate !== "All") {
+            newProducts = newProducts.filter(item => item.category === cate);
+          }
+
+        if (comp !== "All") {
+            newProducts = newProducts.filter(item => item.company === comp);
+        }
+        
+        if (comp !== "All") {
+            newProducts = newProducts.filter(item => item.company === comp);
+        }
+        
+        if (colors !== "All") {
+            // newProducts = newProducts.filter(item => item.colors === colors);
+            newProducts = newProducts.filter(item => item.colors.indexOf(colors) != -1);
+        }        
+
+        newProducts = newProducts.filter(item => item.price <= price);
+    
+        if (shipping) {
+            newProducts = newProducts.filter(item => item.shipping = false);
+        }  else {
+            newProducts = newProducts.filter(item => item.shipping = true);
+        }
+
+        setProducts(newProducts);
+        
+      }, [filters]);    
 
 
     return (
