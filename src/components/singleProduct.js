@@ -1,27 +1,30 @@
 import React , { useContext } from 'react';
 import styled from 'styled-components'
 import { ProductsContext } from '../contexts/ProductsContext';
+import { Link } from 'react-router-dom';
 
 function SingleProduct () {
 
     const { products } = useContext(ProductsContext)
-
+    
     return (
         <>
             { products.map((singleProduct)=>{
 
-                const { image , name , price } = singleProduct;
+                const { id , image , name , price } = singleProduct;
 
                 return (
-                    <Product key={image}>
-                        <div className="img-con">
-                            <img src={image} alt=""/>
-                        </div>
-                        <div className="price-info">
-                            <p> {name[0].toUpperCase() + name.slice(1, name.length )} </p>
-                            <p> { price } </p>
-                        </div>
-                    </Product>
+                        <Product key={image}>
+                            <Link to={'/product/' + id} style={{ "textDecoration" : "none" }}>
+                                <div className="img-con">
+                                    <img src={image} alt=""/>
+                                </div>
+                                <div className="price-info">
+                                    <p> {name[0].toUpperCase() + name.slice(1, name.length )} </p>
+                                    <p> { price } </p>
+                                </div>
+                            </Link>                    
+                        </Product>
                 )
             })}
         </>    
@@ -36,7 +39,6 @@ const Product = styled.div`
         font-family: Helvetica;
     }
 
-    
     .img-con {
         height: 200px;
         max-width: 300px;
@@ -63,7 +65,7 @@ const Product = styled.div`
             display: flex;
             justify-content: flex-end;
             align-items: flex-end;
-            color: 
+            
         }
     }
 `

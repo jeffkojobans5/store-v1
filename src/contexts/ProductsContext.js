@@ -52,7 +52,7 @@ export function ProductsProvider ({children}) {
         
 
     return (
-        <ProductsContext.Provider value={ { category , company , color , loading ,  products , setProducts , sort , setSorted} }>
+        <ProductsContext.Provider value={ { category , company , color , loading ,  products , setProducts , sort} }>
             { children }
         </ProductsContext.Provider>
     )

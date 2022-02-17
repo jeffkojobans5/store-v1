@@ -9,10 +9,10 @@ function ProductsList () {
 
     return (
         <Wrapper> 
-            <p> { products.length } Products Found </p>
-            <div className="products">
-                <SingleProduct />
-            </div>
+                <p> { products.length } Products Found </p>
+                    <div className="products">
+                        <SingleProduct />
+                    </div>
         </Wrapper>
     )
 }

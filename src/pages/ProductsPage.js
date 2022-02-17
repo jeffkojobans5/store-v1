@@ -8,7 +8,6 @@ import Loading from '../components/Loading'
 
 function ProductsPage () {
     const { loading } = useContext(ProductsContext)
-    const { name } = useContext(FilterContext)
 
     return (
         <Wrapper>

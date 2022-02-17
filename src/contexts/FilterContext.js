@@ -1,5 +1,6 @@
 
 import React from 'react'
+import { v4 as uuidv4 } from 'uuid';
 
 import { ProductsContext } from '../contexts/ProductsContext';
 
@@ -7,7 +8,7 @@ export const FilterContext = React.createContext();
 
 export function FilterProvider ( {children} ) {
 
-    const { products , setProducts , sort , setSorted } = React.useContext(ProductsContext)
+    const { products , setProducts , sort  } = React.useContext(ProductsContext)
     
     const [filters, setFilters ] = React.useState({
         search : "",
@@ -94,7 +95,6 @@ export function FilterProvider ( {children} ) {
         }
         
         if (colors !== "All") {
-            // newProducts = newProducts.filter(item => item.colors === colors);
             newProducts = newProducts.filter(item => item.colors.indexOf(colors) != -1);
         }        
 
