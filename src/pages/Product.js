@@ -7,15 +7,12 @@ import Loading from '../components/Loading'
 import axios from 'axios'
 
 function Product () {
-    // const { loading , products } = useContext(ProductsContext)
     const { id } = useParams()
-
-    // const currentProd = products.filter((item)=> {
-    //     return item.id == id
-    // })
 
     const [product , setProduct] = useState([])
     const [loading , setLoading] = useState(true)
+    const [counter , setCounter] = useState(1)
+    const [cart , setCart] = useState([])
 
     function getSingleItem () {
         axios.get(`https://course-api.com/react-store-single-product?id=${id}` ).then((response)=>{
@@ -36,7 +33,28 @@ function Product () {
             <h1> Loading </h1>
         )
     }
-    
+
+    function decrease  () {
+        setCounter((counter)=>{
+            if(counter === 1) {
+                return counter = 1
+            }
+            return counter = counter - 1
+        })
+    }
+    function increase  () {
+        setCounter((counter)=>{
+            if(counter >= product.stock) {
+                return counter = product.stock
+            }
+            return counter = counter + 1
+        })
+    }
+
+    function sendCart () {
+        setCart([...cart , { name: product.name , price : product.price , quantity : counter }])
+        console.log(cart)
+    }
     return (
         <Wrapper>
             <div className="banner">
@@ -52,13 +70,20 @@ function Product () {
                     </div>
                     <div className="details">
                         <h1> {product.name} </h1>
-                        <p> {product.description} </p>
+                        <p>  {product.description} </p>
+                        <p>  {product.price / 100} </p> 
+                        { product.stock }
+                    <div className="counter">                    
+                        <span className="counts" onClick = { ()=>decrease()} > - </span> &nbsp; {counter} &nbsp; <span className="counts" onClick = { ()=>increase()} > + </span>
+                    </div>
+                        <button type="button" onClick={ sendCart }>   Addd to Cart</button>
                     </div>
                 </div>
             </Container>
         </Wrapper>
     )
 }
+
 
 const Wrapper = styled.div`
     font-family: helvetica;
@@ -107,6 +132,28 @@ const Wrapper = styled.div`
 
     .details h1 {
         color: #453227;
+    }
+
+    .counter {
+        margin-top: 1rem;
+
+        .counts {
+            padding: 0.5rem;
+            width: 5px;
+            height: 5px;
+            margin-right: 0.6rem;
+            background-color: #453227;
+            color: white;
+            cursor: pointer;
+        }
+    }
+
+    button {
+        margin-top: 1rem;
+        padding: 1rem;
+        border: none;
+        background-color: brown;
+        color: white;
     }
 `   
 

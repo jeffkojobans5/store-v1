@@ -131,7 +131,7 @@ const Wrapper = styled.div`
         letter-spacing: 0.1rem;
         border-radius: 2px;
     }
-
+    
     .category , .company {
         margin-top: 2rem;
 
