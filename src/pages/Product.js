@@ -51,10 +51,26 @@ function Product () {
         })
     }
 
-    function sendCart () {
-        setCart([...cart , { name: product.name , price : product.price , quantity : counter }])
+    function sendCart ( pro , count ) {
+
+        // loop cart to check if product already exists
+
+        let checker ;
+        if( cart.length > 1) {
+            let copyCart = [...cart];
+            let newCart = copyCart.map((item , index)=>{
+                if(pro.id == item.id) {
+                    copyCart[index] = { ...pro , quantity : counter }
+                }
+            })
+
+            
+        }
+            
+            setCart([...cart , { ...pro , quantity : counter }])
         console.log(cart)
     }
+
     return (
         <Wrapper>
             <div className="banner">
@@ -76,7 +92,7 @@ function Product () {
                     <div className="counter">                    
                         <span className="counts" onClick = { ()=>decrease()} > - </span> &nbsp; {counter} &nbsp; <span className="counts" onClick = { ()=>increase()} > + </span>
                     </div>
-                        <button type="button" onClick={ sendCart }>   Addd to Cart</button>
+                        <button type="button" onClick={ ()=>sendCart(product , counter) }>   Addd to Cart</button>
                     </div>
                 </div>
             </Container>

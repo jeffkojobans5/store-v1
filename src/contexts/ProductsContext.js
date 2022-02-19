@@ -39,8 +39,6 @@ export function ProductsProvider ({children}) {
                 setProducts(response.data)
                 setSorted(response.data);
 
-                
-
         }).catch((error)=>{
             console.log(error)
         })
