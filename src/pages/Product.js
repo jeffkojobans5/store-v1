@@ -3,6 +3,8 @@ import { useContext } from 'react'
 import { useParams } from 'react-router-dom'
 import styled from 'styled-components'
 import { ProductsContext } from '../contexts/ProductsContext'
+import { FilterContext } from '../contexts/FilterContext'
+import { CartContext } from '../contexts/CartContext'
 import Loading from '../components/Loading'
 import axios from 'axios'
 
@@ -12,11 +14,12 @@ function Product () {
     const [product , setProduct] = useState([])
     const [loading , setLoading] = useState(true)
     const [counter , setCounter] = useState(1)
-    const [cart , setCart] = useState([])
+
+    const { cart , sendCart } = useContext(CartContext)
 
     function getSingleItem () {
         axios.get(`https://course-api.com/react-store-single-product?id=${id}` ).then((response)=>{
-            console.log(response.data)
+            // console.log(response.data)
             setProduct(response.data)
             setLoading(false)
         }).catch((error)=>{
@@ -24,9 +27,9 @@ function Product () {
         })
     }
 
-    useEffect(()=>{
+      useEffect(()=>{
         getSingleItem()
-    },[])
+      },[])
 
     if(loading){
         return (
@@ -42,6 +45,7 @@ function Product () {
             return counter = counter - 1
         })
     }
+
     function increase  () {
         setCounter((counter)=>{
             if(counter >= product.stock) {
@@ -51,25 +55,16 @@ function Product () {
         })
     }
 
-    function sendCart ( pro , count ) {
-
-        // loop cart to check if product already exists
-
-        let checker ;
-        if( cart.length > 1) {
-            let copyCart = [...cart];
-            let newCart = copyCart.map((item , index)=>{
-                if(pro.id == item.id) {
-                    copyCart[index] = { ...pro , quantity : counter }
-                }
-            })
-
-            
-        }
-            
-            setCart([...cart , { ...pro , quantity : counter }])
-        console.log(cart)
-    }
+    // function sendCart ( ) {
+    //     const item = [...cart].find(item  => item.id === id)
+    //     let empty = [];
+    //     if(item){
+    //         empty = [...cart , { ...item , quantity: counter }]
+    //     }   else    {
+    //         empty = [...cart , { ...product, quantity: counter}]
+    //     }
+    //     setCart(empty)
+    // }
 
     return (
         <Wrapper>
@@ -90,9 +85,9 @@ function Product () {
                         <p>  {product.price / 100} </p> 
                         { product.stock }
                     <div className="counter">                    
-                        <span className="counts" onClick = { ()=>decrease()} > - </span> &nbsp; {counter} &nbsp; <span className="counts" onClick = { ()=>increase()} > + </span>
+                        <span className="counts" onClick = { ()=>decrease(counter)} > - </span> &nbsp; {counter} &nbsp; <span className="counts" onClick = { ()=>increase(counter)} > + </span>
                     </div>
-                        <button type="button" onClick={ ()=>sendCart(product , counter) }>   Addd to Cart</button>
+                        <button type="button" onClick={ ()=>sendCart( product.id , product) }>   Addd to Cart</button>
                     </div>
                 </div>
             </Container>
