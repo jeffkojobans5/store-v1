@@ -13,9 +13,8 @@ function Product () {
 
     const [product , setProduct] = useState([])
     const [loading , setLoading] = useState(true)
-    const [counter , setCounter] = useState(1)
 
-    const { cart , sendCart } = useContext(CartContext)
+    const { cart , sendCart , decrease , increase , counter } = useContext(CartContext)
 
     function getSingleItem () {
         axios.get(`https://course-api.com/react-store-single-product?id=${id}` ).then((response)=>{
@@ -37,23 +36,23 @@ function Product () {
         )
     }
 
-    function decrease  () {
-        setCounter((counter)=>{
-            if(counter === 1) {
-                return counter = 1
-            }
-            return counter = counter - 1
-        })
-    }
+    // function decrease  () {
+    //     setCounter((counter)=>{
+    //         if(counter === 1) {
+    //             return counter = 1
+    //         }
+    //         return counter = counter - 1
+    //     })
+    // }
 
-    function increase  () {
-        setCounter((counter)=>{
-            if(counter >= product.stock) {
-                return counter = product.stock
-            }
-            return counter = counter + 1
-        })
-    }
+    // function increase  () {
+    //     setCounter((counter)=>{
+    //         if(counter >= product.stock) {
+    //             return counter = product.stock
+    //         }
+    //         return counter = counter + 1
+    //     })
+    // }
 
     // function sendCart ( ) {
     //     const item = [...cart].find(item  => item.id === id)
@@ -85,7 +84,7 @@ function Product () {
                         <p>  {product.price / 100} </p> 
                         { product.stock }
                     <div className="counter">                    
-                        <span className="counts" onClick = { ()=>decrease(counter)} > - </span> &nbsp; {counter} &nbsp; <span className="counts" onClick = { ()=>increase(counter)} > + </span>
+                        <span className="counts" onClick = { ()=>decrease( product)} > - </span> &nbsp; {counter} &nbsp; <span className="counts" onClick = { ()=>increase(product)} > + </span>
                     </div>
                         <button type="button" onClick={ ()=>sendCart( product.id , product) }>   Addd to Cart</button>
                     </div>

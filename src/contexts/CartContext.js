@@ -10,20 +10,49 @@ export const CartContext = createContext();
 
 export function CartProvider ( {children} ) {
     const [ cart , setCart ] = useState(getCartFromLocalStorage());
+    const [counter , setCounter] = useState(1)
     
+
+    function decrease () {
+        setCounter((counter)=>{
+            if(counter === 1) {
+                return counter = 1
+            }
+            return counter = counter - 1
+        })
+    }
+
+    function increase (product) {
+        setCounter((counter)=>{
+            if(counter >= product.stock) {
+                return counter = product.stock
+            }
+            return counter = counter + 1
+        })
+    }
+
+
     function sendCart ( id , product ) {
         
         const item = [...cart].find(item  => item.id === id)
          if(item) {
             const newCart = [...cart].map(item => {
+
+                let finalCounter ;
+                if(item.amount + counter > item.stock) {
+                    finalCounter = item.stock
+                } else {
+                    finalCounter = item.amount + counter
+                }
+                
                 return item.id === id
-                ? { ...item, amount: item.amount + 1 }
+                ? { ...item, amount: finalCounter }
                 : { ...item };
               });
               setCart(newCart)          
           return ;
         } else {
-          const newItem = { ...product , amount: 1}
+          const newItem = { ...product , amount: counter}
           const newCart = [...cart, newItem ] ;
           setCart(newCart)
         }        
@@ -36,7 +65,7 @@ export function CartProvider ( {children} ) {
       },[cart])
 
     return (
-        <CartContext.Provider value={{ cart , sendCart }}>
+        <CartContext.Provider value={{ cart , sendCart , decrease , increase , counter }}>
             { children }
         </CartContext.Provider>
     )
