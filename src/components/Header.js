@@ -1,8 +1,18 @@
+import { useContext } from 'react'
 import styled from 'styled-components'
 import { Link } from 'react-router-dom'
-import Jeff from '../pages/About'
+import { CartContext } from '../contexts/CartContext';
 
 function Header () {
+
+    const { cart } = useContext(CartContext)
+    
+    const calculateTotalCart = cart.reduce((curr , prev)=> {
+         return curr + prev.amount 
+    },0)
+
+    console.log(calculateTotalCart);
+
     return (
         <Nav>
             <Container> 
@@ -10,7 +20,7 @@ function Header () {
                     <Link to="/"><li> Home </li> </Link>
                     <Link to="/"><li> About </li> </Link>
                     <Link to="/products"><li> Products </li> </Link>
-                    <Link to="/"><li> Cart  <span className="cart"> 23 </span> </li> </Link>
+                    <Link to="/cart"><li> Cart  <span className="cart"> { calculateTotalCart } </span> </li> </Link>
                 </ul>
             </Container>
         </Nav>

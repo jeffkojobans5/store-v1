@@ -14,7 +14,7 @@ function Product () {
     const [product , setProduct] = useState([])
     const [loading , setLoading] = useState(true)
 
-    const { cart , sendCart , decrease , increase , counter } = useContext(CartContext)
+    const { sendCart , decrease , increase , counter } = useContext(CartContext)
 
     function getSingleItem () {
         axios.get(`https://course-api.com/react-store-single-product?id=${id}` ).then((response)=>{
@@ -35,35 +35,6 @@ function Product () {
             <h1> Loading </h1>
         )
     }
-
-    // function decrease  () {
-    //     setCounter((counter)=>{
-    //         if(counter === 1) {
-    //             return counter = 1
-    //         }
-    //         return counter = counter - 1
-    //     })
-    // }
-
-    // function increase  () {
-    //     setCounter((counter)=>{
-    //         if(counter >= product.stock) {
-    //             return counter = product.stock
-    //         }
-    //         return counter = counter + 1
-    //     })
-    // }
-
-    // function sendCart ( ) {
-    //     const item = [...cart].find(item  => item.id === id)
-    //     let empty = [];
-    //     if(item){
-    //         empty = [...cart , { ...item , quantity: counter }]
-    //     }   else    {
-    //         empty = [...cart , { ...product, quantity: counter}]
-    //     }
-    //     setCart(empty)
-    // }
 
     return (
         <Wrapper>
