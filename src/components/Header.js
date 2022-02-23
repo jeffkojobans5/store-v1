@@ -11,8 +11,6 @@ function Header () {
          return curr + prev.amount 
     },0)
 
-    console.log(calculateTotalCart);
-
     return (
         <Nav>
             <Container> 

@@ -1,11 +1,8 @@
-import { useEffect , useState } from 'react'
-import { useContext } from 'react'
+import { useEffect , useState , useContext } from 'react'
 import { useParams } from 'react-router-dom'
 import styled from 'styled-components'
-import { ProductsContext } from '../contexts/ProductsContext'
-import { FilterContext } from '../contexts/FilterContext'
 import { CartContext } from '../contexts/CartContext'
-import Loading from '../components/Loading'
+import { useNavigate } from 'react-router-dom'
 import axios from 'axios'
 
 function Product () {
@@ -13,6 +10,7 @@ function Product () {
 
     const [product , setProduct] = useState([])
     const [loading , setLoading] = useState(true)
+    const navigate = useNavigate();
 
     const { sendCart , decrease , increase , counter } = useContext(CartContext)
 
@@ -57,7 +55,10 @@ function Product () {
                     <div className="counter">                    
                         <span className="counts" onClick = { ()=>decrease( product)} > - </span> &nbsp; {counter} &nbsp; <span className="counts" onClick = { ()=>increase(product)} > + </span>
                     </div>
-                        <button type="button" onClick={ ()=>sendCart( product.id , product) }>   Addd to Cart</button>
+                        <button type="button" 
+                            onClick={ 
+                            ()=> {sendCart( product.id , product) ; navigate('/cart')}
+                         }>   Addd to Cart</button>
                     </div>
                 </div>
             </Container>

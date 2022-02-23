@@ -3,26 +3,7 @@ import styled from 'styled-components'
 import { CartContext } from '../contexts/CartContext';
 
 function CartPage () {
-    const { cart } = useContext(CartContext)
-    const  [ counter , setCounter ] = useState(1);
-
-    function decrease () {
-        setCounter((counter)=>{
-            if(counter === 1) {
-                return counter = 1
-            }
-            return counter = counter - 1
-        })
-    }
-
-    function increase (product) {
-        setCounter((counter)=>{
-            if(counter >= product.stock) {
-                return counter = product.stock
-            }
-            return counter = counter + 1
-        })
-    }
+    const { cart , increaseCart , decreaseCart , delPro } = useContext(CartContext)
 
     return (
         <Wrapper>
@@ -52,11 +33,11 @@ function CartPage () {
                             <td> $ {item.price / 100} </td>
                             <td>
                                 <div className="counter">                    
-                                    <span className="counts" onClick = { ()=>decrease( item )} > - </span> &nbsp; { item.amount } &nbsp; <span className="counts" onClick = { ()=>increase( item )} > + </span>
+                                    <span className="counts" onClick = { ()=>decreaseCart( item ) } > - </span> &nbsp; { item.amount } &nbsp; <span className="counts" onClick = { ()=>increaseCart( item )} > + </span>
                                 </div>                                
                             </td>
                             <td>Germany</td>
-                            <td>Germany</td>
+                            <td onClick={ ()=>delPro(item) }>Delete</td>
                         </tr>
                         )
                     }) }

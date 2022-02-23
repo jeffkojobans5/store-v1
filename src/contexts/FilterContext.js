@@ -66,14 +66,12 @@ export function FilterProvider ( {children} ) {
             setFilters({ ...filters, [filter]: filterValue });
         }
         
-        console.log(products);
     }
 
     React.useEffect(() => {
         let newProducts = [...sort] 
         const { search, cate, comp, colors , price , shipping } = filters;
 
-        console.log(filters);
 
         if (search !== "") {
           newProducts = newProducts.filter(item => {
