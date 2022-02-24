@@ -1,10 +1,19 @@
 import { useState , useContext } from 'react';
+import { Link } from 'react-router-dom'
 import styled from 'styled-components'
 import { CartContext } from '../contexts/CartContext';
 
 function CartPage () {
-    const { cart , increaseCart , decreaseCart , delPro } = useContext(CartContext)
+    const { cart , increaseCart , decreaseCart , delPro , subTotal , total , tax , clearCart } = useContext(CartContext)
 
+    if(cart.length == 0){
+        return (
+          <>
+            <h1> Cart is empty </h1>
+            <Link to="/products"> Oya Fill am </Link>
+          </>           
+        )
+    }
     return (
         <Wrapper>
             <div className="banner">
@@ -25,7 +34,7 @@ function CartPage () {
                     </tr>
                     { cart.map((item)=> {
                         return (
-                        <tr key={item.name}>
+                        <tr key={item.images[0]['url']}>
                             <td>
                                 <p> {item.name}  </p>
                                 <img src={ item.images[0]['url'] } alt="" />
@@ -36,14 +45,21 @@ function CartPage () {
                                     <span className="counts" onClick = { ()=>decreaseCart( item ) } > - </span> &nbsp; { item.amount } &nbsp; <span className="counts" onClick = { ()=>increaseCart( item )} > + </span>
                                 </div>                                
                             </td>
-                            <td>Germany</td>
+                            <td> { (item.price * item.amount) / 100 } </td>
                             <td onClick={ ()=>delPro(item) }>Delete</td>
                         </tr>
                         )
                     }) }
                 </tbody>                    
-                </table>                    
+                </table>   
                 </section> 
+
+                <button onClick={ clearCart }> clear cart</button>
+                <p> Sub total : { subTotal } </p>                 
+                <p> Tax : { tax } </p>
+                <p> total : { total }  </p>
+
+                <Link to="/products"> Go back and shop </Link>
             </Container>
         </Wrapper>
     )

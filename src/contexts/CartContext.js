@@ -12,6 +12,10 @@ export function CartProvider ( {children} ) {
     const [cart , setCart] = useState(getCartFromLocalStorage());
     const [counter , setCounter] = useState(1)
     const [example , setExample] = useState(1)
+    const [subTotal , setSubTotal ] = useState(0)
+    const [total , setTotal ] = useState(0)
+
+    const tax = 100;
     
     function increaseCart (cartItem) {
         const item = [...cart].find(item  => item.id === cartItem.id)
@@ -32,9 +36,16 @@ export function CartProvider ( {children} ) {
         } 
     }
 
-    function decreaseCart (cartItem) {
-        setExample(example + 1);
+    useEffect(()=>{
+        let sub = [...cart].reduce((curr , prev)=> {
+                return (curr += prev.amount * prev.price);
+        },0)
 
+        setSubTotal(sub / 100)
+    })
+
+    function decreaseCart (cartItem) {
+        setExample(example + 1)
         const item = [...cart].find(item  => item.id === cartItem.id)
         if(item) {
             const newCart = [...cart].map(item => {
@@ -53,9 +64,7 @@ export function CartProvider ( {children} ) {
               setCart(newCart)          
               return ;
         } 
-
     }    
-
     
     function increase (product) {
         setCounter((counter)=>{
@@ -110,12 +119,18 @@ export function CartProvider ( {children} ) {
 
     useEffect(()=>{
         localStorage.setItem('cart' , JSON.stringify(cart))    
-      },[])
+      },[cart])
 
+      useEffect(()=>{
+        setTotal(subTotal - tax )
+      },[ subTotal])      
 
+      function clearCart () {
+          setCart([])
+      }
 
     return (
-        <CartContext.Provider value={{ cart , sendCart , decrease , increase , counter , increaseCart , decreaseCart , delPro}}>
+        <CartContext.Provider value={{ cart , sendCart , decrease , increase , counter , increaseCart , decreaseCart , delPro , subTotal , total , tax , clearCart}}>
             { children }
         </CartContext.Provider>
     )

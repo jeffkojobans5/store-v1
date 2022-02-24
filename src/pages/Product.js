@@ -10,6 +10,7 @@ function Product () {
 
     const [product , setProduct] = useState([])
     const [loading , setLoading] = useState(true)
+    
     const navigate = useNavigate();
 
     const { sendCart , decrease , increase , counter } = useContext(CartContext)

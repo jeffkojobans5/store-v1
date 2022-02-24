@@ -1,16 +1,15 @@
 
-import React from 'react'
-import { v4 as uuidv4 } from 'uuid';
+import { useContext , useState , createContext , useEffect } from 'react'
 
 import { ProductsContext } from '../contexts/ProductsContext';
 
-export const FilterContext = React.createContext();
+export const FilterContext = createContext();
 
 export function FilterProvider ( {children} ) {
 
-    const { products , setProducts , sort  } = React.useContext(ProductsContext)
+    const { products , setProducts , sort  } = useContext(ProductsContext)
     
-    const [filters, setFilters ] = React.useState({
+    const [filters, setFilters ] = useState({
         search : "",
         cate : "All",
         comp: "All",
@@ -68,7 +67,7 @@ export function FilterProvider ( {children} ) {
         
     }
 
-    React.useEffect(() => {
+    useEffect(() => {
         let newProducts = [...sort] 
         const { search, cate, comp, colors , price , shipping } = filters;
 
