@@ -1,41 +1,45 @@
 import { useState , useContext } from 'react';
 import { Link } from 'react-router-dom'
 import styled from 'styled-components'
-import { CartContext } from '../contexts/CartContext';
+import { UserContext } from '../contexts/UserContext';
 
 function CartPage () {
-    const { cart , increaseCart , decreaseCart , delPro , subTotal , total , tax , clearCart } = useContext(CartContext)
+    const { userDetails , handleRegister , submit } = useContext(UserContext)
 
-    if(cart.length == 0){
-        return (
-          <>
-            <h1> Cart is empty </h1>
-            <Link to="/products"> Oya Fill am </Link>
-          </>           
-        )
-    }
     
     return (
         <Wrapper>
             <Container>
                 <div className="form">
+                <form onSubmit={ submit }>
                     <p>LOGIN </p>
                     <input 
                     type="text" 
                     name="email"        
-                    placeholder="email"                            
+                    placeholder="email"   
+                    value={userDetails.email}
+                    onChange = { (e)=>handleRegister(e) }                         
                     />
 
                     <input 
                     type="password" 
-                    name="email"        
-                    placeholder="password"                            
+                    name="password"        
+                    placeholder="password"     
+                    value={userDetails.password}
+                    onChange = { (e)=>handleRegister(e) }                         
                     />         
 
+                    <input 
+                    type="text" 
+                    name="username"        
+                    placeholder="username"   
+                    value={userDetails.username}
+                    onChange = { (e)=>handleRegister(e) }                         
+                    />
                     <button 
                     type="submit"
-
                     > SUBMIT </button>           
+                </form>    
                 </div>
 
                 <div className="form">
