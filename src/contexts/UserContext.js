@@ -4,7 +4,7 @@ import { useState , createContext, useEffect } from 'react'
 export const UserContext = createContext();
 
 export function UserProvider ( { children } ) {
-
+    let [ login , isLogin ] = useState(false);
     const [ userDetails , setUserDetails] = useState(
         {
             username : "",
@@ -17,6 +17,7 @@ export function UserProvider ( { children } ) {
         e.preventDefault();
         try {
           await axios.post('http://localhost:1337/api/auth/local/register', userDetails);
+
         } catch (err) {
           console.log(err.response.data);
         }
