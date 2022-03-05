@@ -2,11 +2,13 @@ import { useContext } from 'react'
 import styled from 'styled-components'
 import { Link } from 'react-router-dom'
 import { CartContext } from '../contexts/CartContext';
+import { UserContext } from '../contexts/UserContext';
 
 function Header () {
 
     const { cart } = useContext(CartContext)
-    
+    const { user , logOut } = useContext(UserContext);
+
     const calculateTotalCart = cart.reduce((curr , prev)=> {
          return curr + prev.amount 
     },0)
@@ -18,7 +20,8 @@ function Header () {
                     <Link to="/"><li> Home </li> </Link>
                     <Link to="/"><li> About </li> </Link>
                     <Link to="/products"><li> Products </li> </Link>
-                    <Link to="/login"><li> Login </li> </Link>
+                    { user.token ? null :  <Link to="/login" ><li> Login </li> </Link> }
+                    { user.token ?  <Link to="/" onClick={ logOut }><li> Logout </li> </Link>  : null }  
                     <Link to="/cart"><li> Cart  <span className="cart"> { calculateTotalCart } </span> </li> </Link>
                 </ul>
             </Container>

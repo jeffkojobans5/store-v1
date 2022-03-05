@@ -1,17 +1,18 @@
 import { useState , useContext } from 'react';
-import { Link } from 'react-router-dom'
 import styled from 'styled-components'
 import { UserContext } from '../contexts/UserContext';
+import { useNavigate } from 'react-router-dom'
 
 function CartPage () {
     const { userDetails , handleRegister , submit } = useContext(UserContext)
-
+    const navigate = useNavigate();
     
+
     return (
         <Wrapper>
             <Container>
                 <div className="form">
-                <form onSubmit={ submit }>
+                <form>
                     <p>LOGIN </p>
                     <input 
                     type="text" 
@@ -37,7 +38,10 @@ function CartPage () {
                     onChange = { (e)=>handleRegister(e) }                         
                     />
                     <button 
-                    type="submit"
+                    type="button"          
+                    onClick = { 
+                            ()=> { submit() ; navigate('/products')}
+                         }      
                     > SUBMIT </button>           
                 </form>    
                 </div>
@@ -64,7 +68,6 @@ function CartPage () {
 
                     <button 
                     type="submit"
-
                     > SUBMIT </button>           
                 </div>                
             </Container>

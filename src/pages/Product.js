@@ -17,7 +17,6 @@ function Product () {
 
     function getSingleItem () {
         axios.get(`https://course-api.com/react-store-single-product?id=${id}` ).then((response)=>{
-            // console.log(response.data)
             setProduct(response.data)
             setLoading(false)
         }).catch((error)=>{
